@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'AAsyncImageLoader_Example' do
+  pod 'AAsyncImageLoader', :path => '../'
+
+  target 'AAsyncImageLoader_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
