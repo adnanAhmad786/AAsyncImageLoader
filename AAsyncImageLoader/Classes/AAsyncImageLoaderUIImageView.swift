@@ -24,12 +24,14 @@ public extension UIImageView {
     }
 
     /**
-     * Set the URL you want to load
+     * Load the URL in this UIImageView
+     *
+     * This will cancel any previous request pending on this view
      *
      * - parameters:
      *   - url: The url of your image
-     *   - placeholder: Optionnal, the image (UImage instance) to show while the request is not fullfiled
-     *   - statusBlock: Optionnal, a block with your image loaded as an UIImage object (or nil if an error occurs) @see AAsyncResultBlock
+     *   - placeholder: Optional, the image (UImage instance) to show while the request is not fullfiled
+     *   - statusBlock: Optional, a block with your image loaded as an UIImage object (or nil if an error occurs) @see AAsyncResultBlock
      * - returns: nothing
      */
     func aail_load(url: NSURL, placeholder: UIImage? = nil, statusBlock: AAsyncImageLoader.AAsyncResultBlock? = nil) {
@@ -54,7 +56,10 @@ public extension UIImageView {
     }
 
     /**
-     * ...
+     * Cancel the request associated to this UIImageView (if any)
+     *
+     * - parameters: none
+     * - returns: nothing
      */
     func aail_cancel() {
         _aail_request?.cancel()

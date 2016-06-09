@@ -3,7 +3,7 @@ import UIKit
 
 /**
  * AAsyncImageLoader is the main entry point for this libray
- * You should use it to load image by hand, and then implements your logic into the `block` provided
+ * You could use it to load image by hand, and then implements your logic into the `block` provided
  */
 public class AAsyncImageLoader {
 
@@ -11,8 +11,8 @@ public class AAsyncImageLoader {
      * The UIImage result block you get when you ask for an image
      *
      * - parameters:
-     *   - image: Optionnal, the resulting UIImage or nil if an error occurs
-     *   - error: Optionnal, the last error if anything goes wrong, nil otherwise
+     *   - image: Optional, the resulting UIImage or nil if an error occurs
+     *   - error: Optional, the last error if anything goes wrong, nil otherwise
      */
     public typealias AAsyncResultBlock = (image: UIImage?, error: NSError?) -> Void
 
@@ -41,7 +41,7 @@ public class AAsyncImageLoader {
 
     /**
      * Set the URL you want to load and set the result `block` that will be executed
-     * *You should call load() to start the request*
+     * *You must call load() to start the request*
      *
      * - parameters:
      *   - url: The url of your image
@@ -49,12 +49,10 @@ public class AAsyncImageLoader {
      * - returns: self to chain
      */
     public func withUrl(url: NSURL, block: AAsyncResultBlock) -> Self {
-        print("load with url: \(url)")
         self.url = url
         task = configuration.urlSession.dataTaskWithURL(url) {
             data, response, error in
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-            print("url loaded: \(url)")
             if let error = error {
                 block(image: nil, error: error)
             }
@@ -89,7 +87,6 @@ public class AAsyncImageLoader {
      * - returns: self to chain
      */
     public func load() -> Self {
-        print("load")
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         task?.resume()
         return self
@@ -102,7 +99,6 @@ public class AAsyncImageLoader {
      * - returns: self to chain
      */
     public func cancel() -> Self {
-        print("canceled request \(self.url)")
         task?.cancel()
         return self
     }

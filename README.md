@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/cocoapods/l/AAsyncImageLoader.svg?style=flat)](http://cocoapods.org/pods/AAsyncImageLoader)
 [![Platform](https://img.shields.io/cocoapods/p/AAsyncImageLoader.svg?style=flat)](http://cocoapods.org/pods/AAsyncImageLoader)
 
-*An asynchronous image loader, with some magic and an UIImageView category for drop-in integration.*
+*An asynchronous image loader, with some magic including an UIImageView category for drop-in integration.*
 
 This library will allow you to load image from the web to any UIImageView thanks to the UIImageView category.
 
@@ -12,7 +12,11 @@ It is also a more capable low level loading library to get UIImage from the Inte
 
 ## How To Use It
 
-first `import AAsyncImageLoader`, then
+*Requirements*  
+This library needs iOS7, nothing else is needed :)  
+You can install it from cocoapods (see Installation)  
+
+then `import AAsyncImageLoader`
 
 ### The one liner
 
@@ -28,6 +32,7 @@ This libray includes some magic, and will work like a charm for your reusable ce
 It has a cancelation mechanism integrated
 
 ```swift
+// example from the demo app
 func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let CellIdentifier = "Cell"
     let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier, forIndexPath: indexPath)
@@ -42,11 +47,9 @@ func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexP
 }
 ```
 
-as seen in the demo app
-
 ### Keep the control
  
-but you could also get more control
+you could also get more control, by using the core of the library to tweak configuration options like caching or also get to cancel the request
 
 ```swift
 var myImage = UIImage()
@@ -66,6 +69,9 @@ aasyncRequest.withUrl(NSURL(string: "https://example.com/image.jpg")!) {
     }
 }
 .load() // start the request
+
+// later in the code you can cancel the request if needed
+aasyncRequest.cancel()
 ```
 
 ## Example Project
@@ -76,16 +82,11 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 This library comes with unit testing, you can start them by checking out this repository into XCode and run it from there
 
-## Requirements
-
-This library needs iOS7, and is best suited for Swift projects
-Nothing else is needed :)
-
 ## Installation
 
 ### CocoaPods
 
-*prefered way*
+*The prefered way*
 
 AAsyncImageLoader is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
@@ -96,11 +97,19 @@ pod "AAsyncImageLoader"
 
 ### Manual
 
-You could also copy/past the AAsyncImageLoader* files into your app
+If needed, you can also copy/past the AAsyncImageLoader* files into your app
 
-## Author
+## Contributions
 
-Jérôme Gx  
+AAsyncImageLoader is an open source project. If you'd like to contribute, please submit a pull request.  
+But you don't have to write code, you can also:
+
+ - report bug
+ - ask questions
+ - write more examples or documentation
+ - suggest new idea
+
+If you found a bug and are willing to fix it, we will check your Pull Request and integrate it if relevant
 
 ## License
 

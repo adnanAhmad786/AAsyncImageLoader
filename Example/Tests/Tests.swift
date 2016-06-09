@@ -66,7 +66,7 @@ class Tests: XCTestCase {
     }
 
     func testLoadImageViewWithSuccess() {
-        let expectation = expectationWithDescription("Image Data With Success")
+        let expectation = expectationWithDescription("UIImageView Data With Success")
 
         let imageSrc = "https://www.academiedugout.fr/images/2733/300-300/claire-heitzler_retouche_01.jpg"
         let imageUrl = NSURL(string: imageSrc)!
@@ -90,7 +90,7 @@ class Tests: XCTestCase {
     }
 
     func testLoadImageViewWithError() {
-        let expectation = expectationWithDescription("Image Data With Error")
+        let expectation = expectationWithDescription("UIImageView Data With Error")
 
         let imageSrc = "https://www.academiedugout.fr/images/2733/300-300/claire-heitzler_retouche_01_404.jpg"
         let imageUrl = NSURL(string: imageSrc)!
