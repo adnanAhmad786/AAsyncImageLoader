@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'AAsyncImageLoader'
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
   s.summary          = 'An asynchronous image loader, with some magic and an UIImageView category for drop-in integration.'
 
 # This description is used to generate tags and improve search results.
