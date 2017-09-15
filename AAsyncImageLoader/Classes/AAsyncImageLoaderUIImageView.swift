@@ -34,23 +34,23 @@ public extension UIImageView {
      *   - statusBlock: Optional, a block with your image loaded as an UIImage object (or nil if an error occurs) @see AAsyncResultBlock
      * - returns: nothing
      */
-    func aail_load(url: NSURL, placeholder: UIImage? = nil, statusBlock: AAsyncImageLoader.AAsyncResultBlock? = nil) {
+    func aail_load(url: URL, placeholder: UIImage? = nil, statusBlock: AAsyncImageLoader.AAsyncResultBlock? = nil) {
         if let placeholder = placeholder {
             self.image = placeholder
         }
 
         aail_cancel()
         _aail_request = AAsyncImageLoader(configuration: AAsyncImageLoaderConfiguration())
-            .withUrl(url) {
+            .withUrl(url: url) {
                 image, error in
 
                 if let image = image {
-                    dispatch_async(dispatch_get_main_queue()) {
+                    DispatchQueue.main.async() {
                         self.image = image
                     }
                 }
 
-                statusBlock?(image: image, error: error)
+                statusBlock?(image, error)
             }
             .load()
     }
@@ -62,6 +62,6 @@ public extension UIImageView {
      * - returns: nothing
      */
     func aail_cancel() {
-        _aail_request?.cancel()
+        _ = _aail_request?.cancel()
     }
 }

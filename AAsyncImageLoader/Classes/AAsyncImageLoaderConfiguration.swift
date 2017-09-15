@@ -22,13 +22,13 @@ public class AAsyncImageLoaderConfiguration {
         case ForceCacheThenNetwork
     }
 
-    private var cachePolicy: NSURLRequestCachePolicy = .UseProtocolCachePolicy
+    private var cachePolicy: NSURLRequest.CachePolicy = .useProtocolCachePolicy
 
     // Lazy instanciate the main NSURLSession object so we can integrate our custom NSURLSessionConfiguration object
-    internal lazy var urlSession: NSURLSession = {
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+    internal lazy var urlSession: URLSession = {
+        let configuration = URLSessionConfiguration.default
         configuration.requestCachePolicy = self.cachePolicy
-        return NSURLSession(configuration: configuration)
+        return URLSession(configuration: configuration)
     }()
 
     public init() { }
@@ -43,11 +43,11 @@ public class AAsyncImageLoaderConfiguration {
     public func defineCachePolicy(cachePolicy: CachePolicy) -> Self {
         switch cachePolicy {
         case .ForceReload:
-            self.cachePolicy = .ReloadIgnoringLocalCacheData
+            self.cachePolicy = .reloadIgnoringLocalCacheData
         case .ForceCacheThenNetwork:
-            self.cachePolicy = .ReturnCacheDataElseLoad
+            self.cachePolicy = .returnCacheDataElseLoad
         default:
-            self.cachePolicy = .UseProtocolCachePolicy
+            self.cachePolicy = .useProtocolCachePolicy
         }
         return self
     }
