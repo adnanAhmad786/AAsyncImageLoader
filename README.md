@@ -35,16 +35,16 @@ It has a cancelation mechanism integrated
 
 ```swift
 // example from the demo app
-func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let CellIdentifier = "Cell"
-    let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier, forIndexPath: indexPath)
-        
+    let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier, for: indexPath)
+    
     let name = Array<String>(data.keys)[indexPath.row]
     let imageUrl = data[name]!
 
     cell.textLabel?.text = name
-    cell.imageView?.aail_load(NSURL(string: imageUrl)!, placeholder: UIImage(named: "placeholder_image"))
-        
+    cell.imageView?.aail_load(url: URL(string: imageUrl)!, placeholder: UIImage(named: "placeholder_image"))
+    
     return cell
 }
 ```
@@ -60,7 +60,7 @@ let configuration = AAsyncImageLoaderConfiguration()
 configuration.defineCachePolicy(.ForceReload)
 
 let aasyncRequest = AAsyncImageLoader(configuration: configuration)
-aasyncRequest.withUrl(NSURL(string: "https://example.com/image.jpg")!) {
+aasyncRequest.withUrl(url: URL(string: "https://example.com/image.jpg")!) {
     image, error in
     if let image = image {
         myImage = image

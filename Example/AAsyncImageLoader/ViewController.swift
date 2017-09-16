@@ -59,7 +59,7 @@ extension ViewController: UITableViewDelegate {
 
     // MARK: - UITableViewDelegate
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Touched cell")
     }
 }
@@ -68,19 +68,19 @@ extension ViewController: UITableViewDataSource {
 
     // MARK: - UITableViewDataSource
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let CellIdentifier = "Cell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier, forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier, for: indexPath)
         
         let name = Array<String>(data.keys)[indexPath.row]
         let imageUrl = data[name]!
 
         cell.textLabel?.text = name
-        cell.imageView?.aail_load(NSURL(string: imageUrl)!, placeholder: UIImage(named: "placeholder_image"))
+        cell.imageView?.aail_load(url: URL(string: imageUrl)!, placeholder: UIImage(named: "placeholder_image"))
         
         return cell
     }

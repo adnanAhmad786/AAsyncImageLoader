@@ -1,5 +1,5 @@
 PODS:
-  - AAsyncImageLoader (0.1.0)
+  - AAsyncImageLoader (1.0.0)
 
 DEPENDENCIES:
   - AAsyncImageLoader (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AAsyncImageLoader: 2456f5d8f8d9ae9c602f318a50ee8c54c92536cc
+  AAsyncImageLoader: ba285c00de8e9a545f854c283a8866c61d49ba91
 
 PODFILE CHECKSUM: 01c3afb2e5c748e9362073c88b90084774e910a8
 

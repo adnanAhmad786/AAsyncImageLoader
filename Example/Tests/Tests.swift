@@ -15,13 +15,13 @@ class Tests: XCTestCase {
     }
     
     func testLoadImageWithSuccess() {
-        let expectation = expectationWithDescription("Image Data With Success")
+        let expectation = self.expectation(description: "Image Data With Success")
 
         let imageSrc = "https://www.academiedugout.fr/images/2733/300-300/claire-heitzler_retouche_01.jpg"
-        let imageUrl = NSURL(string: imageSrc)!
+        let imageUrl = URL(string: imageSrc)!
 
         let asyncImageLoader = AAsyncImageLoader(configuration: AAsyncImageLoaderConfiguration())
-            .withUrl(imageUrl) {
+            .withUrl(url: imageUrl) {
                 image, error in
 
                 XCTAssertNil(error, "error should be nil")
@@ -31,22 +31,22 @@ class Tests: XCTestCase {
             }
             .load()
 
-        waitForExpectationsWithTimeout(3) {
+        waitForExpectations(timeout: 3) {
             error in
             if let error = error {
-                print(error.description)
+                print(error)
             }
-            asyncImageLoader.cancel()
+            _ = asyncImageLoader.cancel()
         }
     }
 
     func testLoadImageWithError() {
-        let expectation = expectationWithDescription("Image Data With Error")
+        let expectation = self.expectation(description: "Image Data With Error")
 
         let imageSrc = "https://www.academiedugout.fr/images/2733/300-300/claire-heitzler_retouche_01_404.jpg"
-        let imageUrl = NSURL(string: imageSrc)!
+        let imageUrl = URL(string: imageSrc)!
         let asyncImageLoader = AAsyncImageLoader(configuration: AAsyncImageLoaderConfiguration())
-            .withUrl(imageUrl) {
+            .withUrl(url: imageUrl) {
                 image, error in
 
                 XCTAssertNotNil(error, "error should be not nil")
@@ -56,22 +56,22 @@ class Tests: XCTestCase {
             }
             .load()
 
-        waitForExpectationsWithTimeout(3) {
+        waitForExpectations(timeout: 3) {
             error in
             if let error = error {
-                print(error.description)
+                print(error)
             }
-            asyncImageLoader.cancel()
+            _ = asyncImageLoader.cancel()
         }
     }
 
     func testLoadImageViewWithSuccess() {
-        let expectation = expectationWithDescription("UIImageView Data With Success")
+        let expectation = self.expectation(description: "UIImageView Data With Success")
 
         let imageSrc = "https://www.academiedugout.fr/images/2733/300-300/claire-heitzler_retouche_01.jpg"
-        let imageUrl = NSURL(string: imageSrc)!
+        let imageUrl = URL(string: imageSrc)!
         let image = UIImageView()
-        image.aail_load(imageUrl, placeholder: nil) {
+        image.aail_load(url: imageUrl, placeholder: nil) {
             image, error in
 
             XCTAssertNil(error, "error should be nil")
@@ -80,22 +80,22 @@ class Tests: XCTestCase {
             expectation.fulfill()
         }
 
-        waitForExpectationsWithTimeout(3) {
+        waitForExpectations(timeout: 3) {
             error in
             if let error = error {
-                print(error.description)
+                print(error)
             }
             image.aail_cancel()
         }
     }
 
     func testLoadImageViewWithError() {
-        let expectation = expectationWithDescription("UIImageView Data With Error")
+        let expectation = self.expectation(description: "UIImageView Data With Error")
 
         let imageSrc = "https://www.academiedugout.fr/images/2733/300-300/claire-heitzler_retouche_01_404.jpg"
-        let imageUrl = NSURL(string: imageSrc)!
+        let imageUrl = URL(string: imageSrc)!
         let image = UIImageView()
-        image.aail_load(imageUrl, placeholder: nil) {
+        image.aail_load(url: imageUrl, placeholder: nil) {
             image, error in
 
             XCTAssertNotNil(error, "error should be not nil")
@@ -104,10 +104,10 @@ class Tests: XCTestCase {
             expectation.fulfill()
         }
 
-        waitForExpectationsWithTimeout(3) {
+        waitForExpectations(timeout: 3) {
             error in
             if let error = error {
-                print(error.description)
+                print(error)
             }
             image.aail_cancel()
         }
