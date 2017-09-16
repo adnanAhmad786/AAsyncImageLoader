@@ -10,6 +10,8 @@ This library will allow you to load image from the web to any UIImageView thanks
 
 It is also a more capable low level loading library to get UIImage from the Internet allowing you to control the logic you want to put there.
 
+As from version 1.0.0, this library is written in Swift 3.
+
 ## How To Use It
 
 *Requirements*  

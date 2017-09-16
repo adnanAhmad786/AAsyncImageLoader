@@ -14,16 +14,16 @@ public class AAsyncImageLoader {
      *   - image: Optional, the resulting UIImage or nil if an error occurs
      *   - error: Optional, the last error if anything goes wrong, nil otherwise
      */
-    public typealias AAsyncResultBlock = (image: UIImage?, error: NSError?) -> Void
+    public typealias AAsyncResultBlock = (UIImage?, Error?) -> Void
 
     // Our custom error domain
     private static let ErrorDomain = "com.citroon.AsyncImageLoaderError"
 
     // The current task for this instance
-    private var task: NSURLSessionTask?
+    private var task: URLSessionTask?
 
     // We keep the URL arround, it could be useful (ie. error message)
-    private var url: NSURL?
+    private var url: URL?
 
     // The AAsyncImageLoaderConfiguration
     private var configuration: AAsyncImageLoaderConfiguration
@@ -48,32 +48,32 @@ public class AAsyncImageLoader {
      *   - block: a block with your image loaded as an UIImage object (or nil if an error occurs) @see AAsyncResultBlock
      * - returns: self to chain
      */
-    public func withUrl(url: NSURL, block: AAsyncResultBlock) -> Self {
+    public func withUrl(url: URL, block: @escaping AAsyncResultBlock) -> Self {
         self.url = url
-        task = configuration.urlSession.dataTaskWithURL(url) {
+        task = configuration.urlSession.dataTask(with: url) {
             data, response, error in
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             if let error = error {
-                block(image: nil, error: error)
+                block(nil, error)
             }
-            else if let response = response as? NSHTTPURLResponse{
+            else if let response = response as? HTTPURLResponse{
                 if response.statusCode == 200 {
                     if let data = data {
-                        block(image: UIImage(data: data), error: nil)
+                        block(UIImage(data: data), nil)
                     }
                     else {
                         let errorMessage = "Server Error: data is empty"
-                        block(image: nil, error: NSError(domain: AAsyncImageLoader.ErrorDomain, code: 1, userInfo: [NSLocalizedDescriptionKey: errorMessage]))
+                        block(nil, NSError.init(domain: AAsyncImageLoader.ErrorDomain, code: 1, userInfo: [NSLocalizedDescriptionKey: errorMessage]))
                     }
                 }
                 else {
                     let errorMessage = "Server Error: \(response.statusCode) error"
-                    block(image: nil, error: NSError(domain: AAsyncImageLoader.ErrorDomain, code: 2, userInfo: [NSLocalizedDescriptionKey: errorMessage]))
+                    block(nil, NSError.init(domain: AAsyncImageLoader.ErrorDomain, code: 2, userInfo: [NSLocalizedDescriptionKey: errorMessage]))
                 }
             }
             else {
                 let errorMessage = "Server Error: the response is unreadable"
-                block(image: nil, error: NSError(domain: AAsyncImageLoader.ErrorDomain, code: 3, userInfo: [NSLocalizedDescriptionKey: errorMessage]))
+                block(nil, NSError.init(domain: AAsyncImageLoader.ErrorDomain, code: 3, userInfo: [NSLocalizedDescriptionKey: errorMessage]))
             }
         }
 
@@ -87,7 +87,7 @@ public class AAsyncImageLoader {
      * - returns: self to chain
      */
     public func load() -> Self {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         task?.resume()
         return self
     }
